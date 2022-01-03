@@ -8,7 +8,7 @@ import $ from 'jquery';
 const RESTROOT = 'http://localhost:10016/wp-json';
 const wp = new WPAPI({ endpoint: RESTROOT });
 
-wp.login = wp.registerRoute('jwt-auth/v1', '/token', {});
+wp.login = wp.registerRoute('jwt-auth/v1', '/token');
 
 const username = 'cgteam';
 const password = 'pass1234';
@@ -21,9 +21,7 @@ function JwtTestPage() {
       await wp
         .login()
         .create(`username=${username}&password=${password}`, (err, res) => {
-          // do your stuff
           console.log('AUTH TOKEN: ', res.token);
-          // console.log('AUTH RESULT: ', res);
           sessionStorage.setItem('wpJWTToken', JSON.stringify(res.token));
         });
     };

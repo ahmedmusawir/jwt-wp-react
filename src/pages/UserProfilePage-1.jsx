@@ -12,9 +12,11 @@ function UserProfilePage({ userName }) {
   const [isPending, setIsPending] = useState(false);
 
   // THIS THE TEST WORDPRESS INSTALL IN LOCAL
-  const RESTROOT = 'http://localhost:10016/wp-json';
+  // const RESTROOT = 'http://localhost:10016/wp-json';
   const wp = new WPAPI({
-    endpoint: RESTROOT,
+    endpoint: 'http://localhost:10016/wp-json',
+    // username: 'cgteam',
+    // password: '8gLw rmzE hQhZ av4L 1ljg x119',
   });
 
   useEffect(() => {

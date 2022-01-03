@@ -6,14 +6,16 @@ import WPAPI from 'wpapi';
 import Loader from 'react-loader-spinner';
 import parse from 'html-react-parser';
 
+import axios from 'axios';
+
 function HomePage() {
   const [posts, setPosts] = useState([]);
   const [isPending, setIsPending] = useState(false);
 
-  // THIS THE TEST WORDPRESS INSTALL IN LOCAL
-  const RESTROOT = 'http://localhost:10016/wp-json';
   const wp = new WPAPI({
-    endpoint: RESTROOT,
+    endpoint: 'http://localhost:10004/wp-json',
+    username: 'cgteam',
+    password: '8gLw rmzE hQhZ av4L 1ljg x119',
   });
 
   useEffect(() => {
@@ -35,6 +37,25 @@ function HomePage() {
 
     fetchPosts();
   }, []);
+
+  // THIS THE TEST WORDPRESS INSTALL IN LOCAL
+  // const RESTROOT = 'http://localhost:10016/wp-json';
+
+  // useEffect(() => {
+  //   setIsPending(true);
+  //   const fetchPosts = async () => {
+  //     try {
+  //       const res = await axios(RESTROOT + '/wp/v2/posts');
+  //       console.log(res);
+  //       setPosts(res.data);
+  //       setIsPending(false);
+  //     } catch (error) {
+  //       console.log('There was an axios ERROR:' + error);
+  //     }
+  //   };
+
+  //   fetchPosts();
+  // }, []);
 
   return (
     <Page wide={true} pageTitle="Home">
