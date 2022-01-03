@@ -7,6 +7,7 @@ import LoginPage from './pages/LoginPage';
 import UserProfilePage from './pages/UserProfilePage';
 import './App.scss';
 import Logout from './components/Logout';
+import JwtTestPage from './pages/JwtTestPage';
 
 function App() {
   const [userName, setUserName] = useState('');
@@ -14,7 +15,7 @@ function App() {
   useEffect(() => {
     try {
       const wpAuthInfo = JSON.parse(sessionStorage.getItem('wpAuthInfo'));
-      console.log('Auth Info: ', wpAuthInfo);
+      // console.log('Auth Info: ', wpAuthInfo);
       if (wpAuthInfo.token) {
         setUserName(wpAuthInfo.user_display_name);
       }
@@ -37,6 +38,9 @@ function App() {
           </Route>
           <Route exact path="/profile">
             <UserProfilePage userName={userName} />
+          </Route>
+          <Route exact path="/jwt-test">
+            <JwtTestPage />
           </Route>
           <Route path="/*">
             <NotFound />

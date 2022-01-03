@@ -11,6 +11,9 @@ function MainNavbar({ userName }) {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
+          <Nav.Link as={Link} to="/jwt-test">
+            JWT TEST
+          </Nav.Link>
           <Nav className="me-auto">
             {!userName && (
               <Nav.Link as={Link} to="/login">

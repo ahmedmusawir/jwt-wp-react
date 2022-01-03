@@ -1,9 +1,12 @@
 # REACT STATER APP
 
-This is only a starter app with a NavBar and React Router built in. So that I can pull this one in and remove the all
-reference to .git and push the content into the new create-react-app project
+WP + JWT + React + WPAPI - This one uses 2 WP installs.
 
-## Available Scripts
+## Description
 
-All branches also have the same thing. Plz don't push code to this one or any of the branches. This is only to create
-a Started Project
+1. Handles JWT Auth
+2. Handles the Data
+
+### This should be used with and App that doesn't require the relationship
+
+### between the Author & the Post
