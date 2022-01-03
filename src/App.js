@@ -1,20 +1,44 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import MainNavbar from './components/general/MainNavbar';
 import NotFound from './pages/NotFound';
-import './App.scss';
 import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage';
+import UserProfilePage from './pages/UserProfilePage';
+import './App.scss';
+import Logout from './components/Logout';
 
-function App(props) {
+function App() {
+  const [userName, setUserName] = useState('');
+
+  useEffect(() => {
+    try {
+      const wpAuthInfo = JSON.parse(sessionStorage.getItem('wpAuthInfo'));
+      console.log('Auth Info: ', wpAuthInfo);
+      if (wpAuthInfo.token) {
+        setUserName(wpAuthInfo.user_display_name);
+      }
+    } catch (error) {}
+  }, []);
+
   return (
     <BrowserRouter>
-      <MainNavbar />
+      <MainNavbar userName={userName} />
       <main>
         <Switch>
-          <Route exact path='/'>
+          <Route exact path="/">
             <HomePage />
           </Route>
-          <Route path='/*'>
+          <Route exact path="/login">
+            <LoginPage />
+          </Route>
+          <Route exact path="/logout">
+            <Logout />
+          </Route>
+          <Route exact path="/profile">
+            <UserProfilePage userName={userName} />
+          </Route>
+          <Route path="/*">
             <NotFound />
           </Route>
         </Switch>

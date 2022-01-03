@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Page from '../components/layouts/Page';
 import { Row, Col } from 'react-bootstrap';
 import Content from '../components/layouts/Content';
-import WPAPI from 'wpapi';
 import Loader from 'react-loader-spinner';
 import parse from 'html-react-parser';
 
@@ -12,50 +11,24 @@ function HomePage() {
   const [posts, setPosts] = useState([]);
   const [isPending, setIsPending] = useState(false);
 
-  const wp = new WPAPI({
-    endpoint: 'http://localhost:10004/wp-json',
-    username: 'cgteam',
-    password: '8gLw rmzE hQhZ av4L 1ljg x119',
-  });
+  // THIS THE TEST WORDPRESS INSTALL IN LOCAL
+  const RESTROOT = 'http://localhost:10016/wp-json';
 
   useEffect(() => {
-    async function fetchPosts() {
+    setIsPending(true);
+    const fetchPosts = async () => {
       try {
-        setIsPending(true);
-        // Fetch posts
-        const fetchedPosts = await wp.posts().get();
-
-        // console.log(fetchedPosts);
-        setPosts(fetchedPosts);
+        const res = await axios(RESTROOT + '/wp/v2/posts');
+        console.log(res);
+        setPosts(res.data);
         setIsPending(false);
-      } catch (e) {
-        // print error
-        console.log(e);
-        return [];
+      } catch (error) {
+        console.log('There was an axios ERROR:' + error);
       }
-    }
+    };
 
     fetchPosts();
   }, []);
-
-  // THIS THE TEST WORDPRESS INSTALL IN LOCAL
-  // const RESTROOT = 'http://localhost:10016/wp-json';
-
-  // useEffect(() => {
-  //   setIsPending(true);
-  //   const fetchPosts = async () => {
-  //     try {
-  //       const res = await axios(RESTROOT + '/wp/v2/posts');
-  //       console.log(res);
-  //       setPosts(res.data);
-  //       setIsPending(false);
-  //     } catch (error) {
-  //       console.log('There was an axios ERROR:' + error);
-  //     }
-  //   };
-
-  //   fetchPosts();
-  // }, []);
 
   return (
     <Page wide={true} pageTitle="Home">
