@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import Page from '../components/layouts/Page';
-import { Row, Col } from 'react-bootstrap';
-import Content from '../components/layouts/Content';
-import WPAPI from 'wpapi';
+import React, { useEffect, useState } from "react";
+import Page from "../components/layouts/Page";
+import { Row, Col } from "react-bootstrap";
+import Content from "../components/layouts/Content";
+import WPAPI from "wpapi";
 
-const RESTROOT = 'http://localhost:10016/wp-json';
+const RESTROOT = "http://jwtwp.local/wp-json";
 const wp = new WPAPI({ endpoint: RESTROOT });
 
-wp.login = wp.registerRoute('jwt-auth/v1', '/token');
+wp.login = wp.registerRoute("jwt-auth/v1", "/token");
 
-const username = 'cgteam';
-const password = 'pass1234';
+const username = "cgteam";
+const password = "pass1234";
 
 function JwtTestPage() {
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState("");
 
   useEffect(() => {
     const getJWTFromWp = async () => {
       await wp
         .login()
         .create(`username=${username}&password=${password}`, (err, res) => {
-          console.log('AUTH TOKEN: ', res.token);
-          sessionStorage.setItem('wpJWTToken', JSON.stringify(res.token));
+          console.log("AUTH TOKEN: ", res.token);
+          sessionStorage.setItem("wpJWTToken", JSON.stringify(res.token));
         });
     };
 
@@ -29,18 +29,18 @@ function JwtTestPage() {
   }, []);
 
   const handleInsert = () => {
-    const token = JSON.parse(sessionStorage.getItem('wpJWTToken'));
-    console.log('TOKEN IN HANDLE INSERT:', token);
+    const token = JSON.parse(sessionStorage.getItem("wpJWTToken"));
+    console.log("TOKEN IN HANDLE INSERT:", token);
 
     // CREATE POST WITH WPAPI AND JWT TOKEN
     wp.posts()
       .setHeaders({
-        Authorization: 'Bearer ' + token,
+        Authorization: "Bearer " + token,
       })
       .create({
         title,
-        content: 'JWT Your post content',
-        status: 'publish',
+        content: "JWT Your post content",
+        status: "publish",
       })
       .then(function (response) {
         console.log(response);
