@@ -3,7 +3,6 @@ import Page from '../components/layouts/Page';
 import { Row, Col } from 'react-bootstrap';
 import Content from '../components/layouts/Content';
 import WPAPI from 'wpapi';
-import $ from 'jquery';
 
 const RESTROOT = 'http://localhost:10016/wp-json';
 const wp = new WPAPI({ endpoint: RESTROOT });
@@ -44,7 +43,7 @@ function JwtTestPage() {
         status: 'publish',
       })
       .then(function (response) {
-        console.log(response.id);
+        console.log(response);
       });
   };
 
