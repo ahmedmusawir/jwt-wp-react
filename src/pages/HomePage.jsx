@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import Page from '../components/layouts/Page';
-import { Row, Col } from 'react-bootstrap';
-import Content from '../components/layouts/Content';
-import WPAPI from 'wpapi';
-import Loader from 'react-loader-spinner';
-import parse from 'html-react-parser';
+import React, { useEffect, useState } from "react";
+import Page from "../components/layouts/Page";
+import { Row, Col } from "react-bootstrap";
+import Content from "../components/layouts/Content";
+import WPAPI from "wpapi";
+import Loader from "react-loader-spinner";
+import parse from "html-react-parser";
 
 function HomePage() {
   const [posts, setPosts] = useState([]);
   const [isPending, setIsPending] = useState(false);
 
   // THIS THE TEST WORDPRESS INSTALL IN LOCAL
-  const RESTROOT = 'http://localhost:10016/wp-json';
+  const RESTROOT = "http://jwtwp.local/wp-json";
   const wp = new WPAPI({
     endpoint: RESTROOT,
   });
@@ -62,7 +62,7 @@ function HomePage() {
                 {posts &&
                   posts.map((post) => (
                     <article key={post.id} className="list-group-item">
-                      {parse(post.title.rendered)}{' '}
+                      {parse(post.title.rendered)}{" "}
                       <span className="badge badge-primary">
                         Post ID: {post.id}
                       </span>

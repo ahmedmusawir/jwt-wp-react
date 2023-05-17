@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import Page from '../components/layouts/Page';
-import { Row, Col } from 'react-bootstrap';
-import Content from '../components/layouts/Content';
-import { Link } from 'react-router-dom';
-import WPAPI from 'wpapi';
-import Loader from 'react-loader-spinner';
-import parse from 'html-react-parser';
+import React, { useState, useEffect } from "react";
+import Page from "../components/layouts/Page";
+import { Row, Col } from "react-bootstrap";
+import Content from "../components/layouts/Content";
+import { Link } from "react-router-dom";
+import WPAPI from "wpapi";
+import Loader from "react-loader-spinner";
+import parse from "html-react-parser";
 
 function UserProfilePage({ userName }) {
   const [posts, setPosts] = useState([]);
   const [isPending, setIsPending] = useState(false);
 
   // THIS THE TEST WORDPRESS INSTALL IN LOCAL
-  const RESTROOT = 'http://localhost:10016/wp-json';
+  const RESTROOT = "http://jwtwp.local/wp-json";
   const wp = new WPAPI({
     endpoint: RESTROOT,
   });
@@ -40,13 +40,13 @@ function UserProfilePage({ userName }) {
   const deletePost = async (id) => {
     setIsPending(true);
 
-    const token = JSON.parse(sessionStorage.getItem('wpJWTToken'));
-    console.log('TOKEN IN HANDLE INSERT:', token);
+    const token = JSON.parse(sessionStorage.getItem("wpJWTToken"));
+    console.log("TOKEN IN HANDLE INSERT:", token);
 
     await wp
       .posts()
       .setHeaders({
-        Authorization: 'Bearer ' + token,
+        Authorization: "Bearer " + token,
       })
       .id(id)
       .delete()
@@ -81,7 +81,7 @@ function UserProfilePage({ userName }) {
                       <div className="col-sm-10">
                         <Link to={`/post/${post.id}`}>
                           <li className="list-group-item">
-                            {parse(post.title.rendered)}{' '}
+                            {parse(post.title.rendered)}{" "}
                             <span className="badge badge-primary">
                               Post ID: {post.id}
                             </span>
